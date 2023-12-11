@@ -25,8 +25,9 @@ describe('reverseString', () => {
 
 describe('mirror', () => {
   it('prints the correct greeting', () => {
-    const mockConsoleLog = jest.spyOn(console, 'log').mockImplementationOnce(() => { });
+    jest.spyOn(Date.prototype, 'getHours').mockImplementation(() => 10)
+    const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation(() => { });
     mirror('reer');
-    expect(mockConsoleLog).toHaveBeenCalledWith('Bonjour! Bienvenue dans l\'application miroir et palindrome.');
+    expect(mockConsoleLog.mock.calls[0][0]).toBe('Bonjour! Bienvenue dans l\'application miroir et palindrome.');
   });
 });
