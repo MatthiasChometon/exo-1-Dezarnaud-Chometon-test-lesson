@@ -1,24 +1,18 @@
 import { getMomentOfDay, reverseString, mirror } from './mirror';
 
 describe('getMomentOfDay', () => {
-  beforeAll(() => {
-    jest.useFakeTimers('modern');
-    jest.setSystemTime(new Date(2020, 3, 1));
-  });
-
-  afterAll(() => {
-    jest.useRealTimers();
-  });
-
   it('returns "Bonjour" in the morning', () => {
+    jest.spyOn(Date.prototype, 'getHours').mockImplementation(() => 10)
     expect(getMomentOfDay()).toBe('Bonjour');
   });
 
   it('returns "Bon après-midi" in the afternoon', () => {
+    jest.spyOn(Date.prototype, 'getHours').mockImplementation(() => 15)
     expect(getMomentOfDay()).toBe('Bon après-midi');
   });
 
   it('returns "Bonsoir" in the evening', () => {
+    jest.spyOn(Date.prototype, 'getHours').mockImplementation(() => 23)
     expect(getMomentOfDay()).toBe('Bonsoir');
   });
 });
@@ -29,15 +23,10 @@ describe('reverseString', () => {
   });
 });
 
-describe('main', () => {
-  // You can add more its for different scenarios in the main function
+describe('mirror', () => {
   it('prints the correct greeting', () => {
-    // Mocking console.log to capture the output
     const mockConsoleLog = jest.spyOn(console, 'log').mockImplementationOnce(() => { });
-
     mirror('reer');
-
-    // Check if the correct greeting is printed
     expect(mockConsoleLog).toHaveBeenCalledWith('Bonjour! Bienvenue dans l\'application miroir et palindrome.');
   });
 });
