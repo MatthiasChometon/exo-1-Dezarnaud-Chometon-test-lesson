@@ -16,12 +16,12 @@ export function reverseString (str: string): string {
 }
 
 // Fonction principale
-export function main () {
+export function mirror (userInput: string) {
  // Salutation au démarrage
  const greeting = getMomentOfDay();
  console.log(`${greeting}! Bienvenue dans l'application miroir et palindrome.`);
 
- const userInput: string = process.argv.slice(2)[0];
+ console.log({ userInput })
 
  // Vérifier si l'utilisateur souhaite quitter
  if (userInput === null || userInput.toLowerCase() === 'exit') {
@@ -43,6 +43,3 @@ export function main () {
  const farewell = getMomentOfDay() === 'Bonsoir' ? 'Bonne nuit' : 'Au revoir';
  console.log(`${farewell}!`);
 }
-
-// Appeler la fonction principale
-main();
