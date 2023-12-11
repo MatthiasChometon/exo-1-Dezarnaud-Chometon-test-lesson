@@ -12,11 +12,13 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.23.5",
     "@types/jest": "^29.5.11",
-    "ts-jest": "^29.1.1",
+    "babel-jest": "^29.7.0",
     "ts-node": "^10.9.2"
   }
 }
