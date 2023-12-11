@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "mirror": "npx ts-node mirror.ts"
+    "mirror": "npx ts-node mirror.ts",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
