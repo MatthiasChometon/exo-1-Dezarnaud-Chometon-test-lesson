@@ -1,16 +1,16 @@
-import {LangueInterface} from "../../src/langue.interface";
-import { MomentDeLaJournee } from "../../src/momentDeLaJournee";
+import { LangueInterface } from "../../src/domain/langue.interface";
+import { MomentDeLaJournee } from "../../src/domain/momentDeLaJournee";
 
 export class LangueFake implements LangueInterface {
-    Feliciter(): string {
+    Feliciter (): string {
         return "Félicitations";
     }
 
-    Saluer(moment: MomentDeLaJournee): string {
+    Saluer (moment: MomentDeLaJournee): string {
         return "Salutations";
     }
 
-    Acquitter(moment: MomentDeLaJournee): string {
+    Acquitter (moment: MomentDeLaJournee): string {
         return "Acquittance";
     }
 

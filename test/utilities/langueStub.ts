@@ -1,15 +1,15 @@
-import {LangueInterface} from "../../src/langue.interface";
-import { MomentDeLaJournee } from "../../src/momentDeLaJournee";
+import { LangueInterface } from "../../src/domain/langue.interface";
+import { MomentDeLaJournee } from "../../src/domain/momentDeLaJournee";
 
 export class LangueStub implements LangueInterface {
-    Feliciter(): string {
+    Feliciter (): string {
         return "";
     }
 
-    Saluer(moment: MomentDeLaJournee): string {
+    Saluer (moment: MomentDeLaJournee): string {
         return "";
     }
-    Acquitter(): string {
+    Acquitter (): string {
         return "";
     }
 

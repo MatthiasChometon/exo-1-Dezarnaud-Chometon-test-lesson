@@ -5,13 +5,13 @@ export class MomentDeLaJournee {
     public static APRES_MIDI: MomentDeLaJournee = new MomentDeLaJournee("Apres_midi");
     public static SOIREE: MomentDeLaJournee = new MomentDeLaJournee("Soiree");
     public static NUIT: MomentDeLaJournee = new MomentDeLaJournee("Nuit");
-    public static INCONNUE : MomentDeLaJournee = new MomentDeLaJournee("Inconnue");
+    public static INCONNUE: MomentDeLaJournee = new MomentDeLaJournee("Inconnue");
 
-    private constructor(representation: string) {
+    private constructor (representation: string) {
         this._representation = representation;
     }
 
-    public toString(){
+    public toString () {
         return this._representation;
     }
 }

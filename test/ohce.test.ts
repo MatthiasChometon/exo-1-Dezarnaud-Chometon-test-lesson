@@ -1,11 +1,11 @@
-import * as os from "os";
-import { Expressions } from "../src/expressions";
-import { LangueFrançaise } from "../src/langueFrançaise";
-import { LangueInterface } from "../src/langue.interface";
-import { langueAnglaise } from "../src/langueAnglaise";
-import { LangueFake } from "./utilities/langueFake";
-import { MomentDeLaJournee } from "../src/momentDeLaJournee";
-import { VerificateurPalindromeBuilder } from "./utilities/verificationPalindormeBuilder";
+import { MomentDeLaJournee } from "../src/domain/momentDeLaJournee";
+import { VerificateurPalindromeBuilder } from "../test/utilities/verificationPalindormeBuilder";
+import { Expressions } from "../src/domain/expressions"
+import { LangueFrançaise } from "../src/domain/langueFrançaise"
+import { LangueAnglaise } from "../src/domain/langueAnglaise"
+import * as os from 'os'
+import { LangueInterface } from "../src/domain/langue.interface";
+import { LangueFake } from '../test/utilities/langueFake'
 
 const palindrome = "radar";
 const nonPalindromes = ["test", "ynov"];
@@ -21,7 +21,7 @@ const momentsDeLaJournee = [
 describe("test works", () => {
   test.each([...nonPalindromes])(
     "QUAND on saisit un non-palindrome %s " +
-      "ALORS elle est renvoyée en miroir",
+    "ALORS elle est renvoyée en miroir",
     (chaine: string) => {
       let resultat = VerificateurPalindromeBuilder.Default().Verifier(chaine);
 
@@ -32,12 +32,12 @@ describe("test works", () => {
 
   test.each([
     [new LangueFrançaise(), Expressions.BIEN_DIT],
-    [new langueAnglaise(), Expressions.WELL_SAID],
+    [new LangueAnglaise(), Expressions.WELL_SAID],
   ])(
     "ETANT DONNE un utilisateur parlant la %s " +
-      "QUAND on saisit un palindrome " +
-      "ALORS celui-ci est renvoyé " +
-      "ET '%s' est envoyé ensuite",
+    "QUAND on saisit un palindrome " +
+    "ALORS celui-ci est renvoyé " +
+    "ET '%s' est envoyé ensuite",
     (langue: LangueInterface, attendu: string) => {
       let verificateur = new VerificateurPalindromeBuilder()
         .AyantPourLangue(langue)
@@ -49,7 +49,7 @@ describe("test works", () => {
     }
   );
 
-  function casesSalutations() {
+  function casesSalutations () {
     let chaines = [...nonPalindromes, palindrome];
     let cases: [MomentDeLaJournee, string][] = [];
 
@@ -60,9 +60,9 @@ describe("test works", () => {
   }
   test.each(casesSalutations())(
     "ETANT DONNE un utilisateur parlant langueFake" +
-      "ET que nous sommes le %s " +
-      "QUAND on saisit une chaîne %s " +
-      "ALORS les salutations de cette langue à ce moment de la journée sont envoyées avant toute réponse",
+    "ET que nous sommes le %s " +
+    "QUAND on saisit une chaîne %s " +
+    "ALORS les salutations de cette langue à ce moment de la journée sont envoyées avant toute réponse",
     (momentDeLaJournee: MomentDeLaJournee, chaine: string) => {
       let langueFake = new LangueFake();
 
@@ -81,9 +81,9 @@ describe("test works", () => {
 
   test.each(casesSalutations())(
     "ETANT DONNE un utilisateur parlant langueFake" +
-      "ET que nous sommes le %s " +
-      "QUAND on saisit une chaîne %s " +
-      "ALORS les salutations de cette langue à ce moment de la journée sont envoyées avant toute réponse",
+    "ET que nous sommes le %s " +
+    "QUAND on saisit une chaîne %s " +
+    "ALORS les salutations de cette langue à ce moment de la journée sont envoyées avant toute réponse",
     (momentDeLaJournee: MomentDeLaJournee, chaine: string) => {
       let langueFake = new LangueFake();
 
@@ -102,8 +102,8 @@ describe("test works", () => {
 
   test.each([...nonPalindromes, palindrome])(
     "ETANT DONNE un utilisateur parlant français " +
-      "QUAND on saisit une chaîne %s " +
-      'ALORS "Au revoir" est envoyé en dernier.',
+    "QUAND on saisit une chaîne %s " +
+    'ALORS "Au revoir" est envoyé en dernier.',
     (chaine: string) => {
       const langue = new LangueFrançaise();
       let verificateur = new VerificateurPalindromeBuilder()
@@ -120,10 +120,10 @@ describe("test works", () => {
 
   test.each([...nonPalindromes, palindrome])(
     "ETANT DONNE un utilisateur parlant anglais " +
-      "QUAND on saisit une chaîne %s " +
-      'ALORS "Goodbye" est envoyé en dernier.',
+    "QUAND on saisit une chaîne %s " +
+    'ALORS "Goodbye" est envoyé en dernier.',
     (chaine: string) => {
-      const langue = new langueAnglaise();
+      const langue = new LangueAnglaise();
       let verificateur = new VerificateurPalindromeBuilder()
         .AyantPourLangue(langue)
         .Build();

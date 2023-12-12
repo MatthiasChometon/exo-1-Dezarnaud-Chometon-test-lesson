@@ -1,8 +1,8 @@
-import { LangueFrançaise } from "../src/langueFrançaise";
-import { Expressions } from "../src/expressions";
-import { LangueInterface } from "../src/langue.interface";
-import { langueAnglaise } from "../src/langueAnglaise";
-import { MomentDeLaJournee } from "../src/momentDeLaJournee";
+import { Expressions } from "../src/domain/expressions";
+import { LangueInterface } from "../src/domain/langue.interface";
+import { LangueAnglaise } from "../src/domain/langueAnglaise";
+import { LangueFrançaise } from "../src/domain/langueFrançaise";
+import { MomentDeLaJournee } from "../src/domain/momentDeLaJournee";
 
 describe("Langues", () => {
   test.each([
@@ -11,10 +11,10 @@ describe("Langues", () => {
     [new LangueFrançaise(), MomentDeLaJournee.SOIREE, Expressions.BONSOIR],
     [new LangueFrançaise(), MomentDeLaJournee.NUIT, Expressions.BONSOIR],
 
-    [new langueAnglaise(), MomentDeLaJournee.MATIN, Expressions.GOOD_MORNING],
-    [new langueAnglaise(), MomentDeLaJournee.APRES_MIDI, Expressions.GOOD_AFTERNOON],
-    [new langueAnglaise(), MomentDeLaJournee.SOIREE, Expressions.GOOD_EVENING],
-    [new langueAnglaise(), MomentDeLaJournee.NUIT, Expressions.GOOD_NIGHT],
+    [new LangueAnglaise(), MomentDeLaJournee.MATIN, Expressions.GOOD_MORNING],
+    [new LangueAnglaise(), MomentDeLaJournee.APRES_MIDI, Expressions.GOOD_AFTERNOON],
+    [new LangueAnglaise(), MomentDeLaJournee.SOIREE, Expressions.GOOD_EVENING],
+    [new LangueAnglaise(), MomentDeLaJournee.NUIT, Expressions.GOOD_NIGHT],
 
   ])(
     "En %s on salue le '%s' par '%s'",
@@ -28,11 +28,11 @@ describe("Langues", () => {
     [new LangueFrançaise(), MomentDeLaJournee.APRES_MIDI, Expressions.BONNE_APRES_MIDI],
     [new LangueFrançaise(), MomentDeLaJournee.SOIREE, Expressions.BONNE_SOIREE],
     [new LangueFrançaise(), MomentDeLaJournee.NUIT, Expressions.BONNE_NUIT],
-    
-    [new langueAnglaise(), MomentDeLaJournee.MATIN, Expressions.GOODBYE],
-    [new langueAnglaise(), MomentDeLaJournee.APRES_MIDI, Expressions.GOODBYE],
-    [new langueAnglaise(), MomentDeLaJournee.SOIREE, Expressions.GOODBYE],
-    [new langueAnglaise(), MomentDeLaJournee.NUIT, Expressions.GOODBYE],
+
+    [new LangueAnglaise(), MomentDeLaJournee.MATIN, Expressions.GOODBYE],
+    [new LangueAnglaise(), MomentDeLaJournee.APRES_MIDI, Expressions.GOODBYE],
+    [new LangueAnglaise(), MomentDeLaJournee.SOIREE, Expressions.GOODBYE],
+    [new LangueAnglaise(), MomentDeLaJournee.NUIT, Expressions.GOODBYE],
 
   ])(
     "En %s on dire au revoir le '%s' par '%s'",

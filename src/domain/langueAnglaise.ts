@@ -2,12 +2,12 @@ import { LangueInterface } from "./langue.interface";
 import { Expressions } from "./expressions";
 import { MomentDeLaJournee } from "./momentDeLaJournee";
 
-export class langueAnglaise implements LangueInterface {
-  public Acquitter(): string {
+export class LangueAnglaise implements LangueInterface {
+  public Acquitter (): string {
     return Expressions.GOODBYE;
   }
 
-  public Saluer(moment: MomentDeLaJournee): string {
+  public Saluer (moment: MomentDeLaJournee): string {
     if ((moment === MomentDeLaJournee.MATIN)) {
       return Expressions.GOOD_MORNING;
     }
@@ -27,11 +27,11 @@ export class langueAnglaise implements LangueInterface {
     return Expressions.HELLO;
   }
 
-  public Feliciter(): string {
+  public Feliciter (): string {
     return Expressions.WELL_SAID;
   }
 
-  public toString(): string {
+  public toString (): string {
     return "Langue Anglaise";
   }
 }
