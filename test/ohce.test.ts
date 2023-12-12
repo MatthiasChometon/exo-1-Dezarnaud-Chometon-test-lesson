@@ -22,11 +22,11 @@ describe("test works", () => {
   test.each([...nonPalindromes])(
     "QUAND on saisit un non-palindrome %s " +
       "ALORS elle est renvoyée en miroir",
-    (chaîne: string) => {
-      let résultat = VerificateurPalindromeBuilder.Default().Verifier(chaîne);
+    (chaine: string) => {
+      let resultat = VerificateurPalindromeBuilder.Default().Verifier(chaine);
 
-      let attendu = chaîne.split("").reverse().join("");
-      expect(résultat).toContain(attendu);
+      let attendu = chaine.split("").reverse().join("");
+      expect(resultat).toContain(attendu);
     }
   );
 
@@ -39,22 +39,22 @@ describe("test works", () => {
       "ALORS celui-ci est renvoyé " +
       "ET '%s' est envoyé ensuite",
     (langue: LangueInterface, attendu: string) => {
-      let vérificateur = new VerificateurPalindromeBuilder()
+      let verificateur = new VerificateurPalindromeBuilder()
         .AyantPourLangue(langue)
         .Build();
 
-      let résultat = vérificateur.Verifier(palindrome);
+      let resultat = verificateur.Verifier(palindrome);
 
-      expect(résultat).toContain(palindrome + os.EOL + attendu);
+      expect(resultat).toContain(palindrome + os.EOL + attendu);
     }
   );
 
   function casesSalutations() {
-    let chaînes = [...nonPalindromes, palindrome];
+    let chaines = [...nonPalindromes, palindrome];
     let cases: [MomentDeLaJournee, string][] = [];
 
     for (let momentDeLaJournee of momentsDeLaJournee)
-      for (let chaîne of chaînes) cases.push([momentDeLaJournee, chaîne]);
+      for (let chaine of chaines) cases.push([momentDeLaJournee, chaine]);
 
     return cases;
   }
@@ -66,16 +66,37 @@ describe("test works", () => {
     (momentDeLaJournee: MomentDeLaJournee, chaine: string) => {
       let langueFake = new LangueFake();
 
-      let vérificateur = new VerificateurPalindromeBuilder()
+      let verificateur = new VerificateurPalindromeBuilder()
         .AyantPourLangue(langueFake)
         .AyantPourMomentDeLaJournee(momentDeLaJournee)
         .Build();
 
-      let résultat = vérificateur.Verifier(chaine, momentDeLaJournee);
+      let resultat = verificateur.Verifier(chaine, momentDeLaJournee);
 
-      let premièreLigne = résultat.split(os.EOL)[0];
+      let premiereLigne = resultat.split(os.EOL)[0];
       let attendu = langueFake.Saluer(momentDeLaJournee);
-      expect(premièreLigne).toEqual(attendu);
+      expect(premiereLigne).toEqual(attendu);
+    }
+  );
+
+  test.each(casesSalutations())(
+    "ETANT DONNE un utilisateur parlant langueFake" +
+      "ET que nous sommes le %s " +
+      "QUAND on saisit une chaîne %s " +
+      "ALORS les salutations de cette langue à ce moment de la journée sont envoyées avant toute réponse",
+    (momentDeLaJournee: MomentDeLaJournee, chaine: string) => {
+      let langueFake = new LangueFake();
+
+      let verificateur = new VerificateurPalindromeBuilder()
+        .AyantPourLangue(langueFake)
+        .AyantPourMomentDeLaJournee(momentDeLaJournee)
+        .Build();
+
+      let resultat = verificateur.Verifier(chaine, momentDeLaJournee);
+      let lignes = resultat.split(os.EOL);
+      let derniereLigne = lignes[lignes.length - 1];
+      let attendu = langueFake.Acquitter(momentDeLaJournee);
+      expect(derniereLigne).toEqual(attendu);
     }
   );
 
@@ -83,17 +104,17 @@ describe("test works", () => {
     "ETANT DONNE un utilisateur parlant français " +
       "QUAND on saisit une chaîne %s " +
       'ALORS "Au revoir" est envoyé en dernier.',
-    (chaîne: string) => {
+    (chaine: string) => {
       const langue = new LangueFrançaise();
-      let vérificateur = new VerificateurPalindromeBuilder()
+      let verificateur = new VerificateurPalindromeBuilder()
         .AyantPourLangue(langue)
         .Build();
 
-      let résultat = vérificateur.Verifier(chaîne);
+      let resultat = verificateur.Verifier(chaine);
 
-      let lignes = résultat.split(os.EOL);
-      let dernièreLigne = lignes[lignes.length - 1];
-      expect(dernièreLigne).toEqual(Expressions.AU_REVOIR);
+      let lignes = resultat.split(os.EOL);
+      let derniereLigne = lignes[lignes.length - 1];
+      expect(derniereLigne).toEqual(Expressions.AU_REVOIR);
     }
   );
 
@@ -101,17 +122,17 @@ describe("test works", () => {
     "ETANT DONNE un utilisateur parlant anglais " +
       "QUAND on saisit une chaîne %s " +
       'ALORS "Goodbye" est envoyé en dernier.',
-    (chaîne: string) => {
+    (chaine: string) => {
       const langue = new langueAnglaise();
-      let vérificateur = new VerificateurPalindromeBuilder()
+      let verificateur = new VerificateurPalindromeBuilder()
         .AyantPourLangue(langue)
         .Build();
 
-      let résultat = vérificateur.Verifier(chaîne);
+      let resultat = verificateur.Verifier(chaine);
 
-      let lignes = résultat.split(os.EOL);
-      let dernièreLigne = lignes[lignes.length - 1];
-      expect(dernièreLigne).toEqual(Expressions.GOODBYE);
+      let lignes = resultat.split(os.EOL);
+      let derniereLigne = lignes[lignes.length - 1];
+      expect(derniereLigne).toEqual(Expressions.GOODBYE);
     }
   );
 });
