@@ -5,13 +5,14 @@ import {LangueStub} from "./langueStub";
 
 export class VerificateurPalindromeBuilder {
     private _langue: LangueInterface = new LangueStub();
+    private _moment: MomentDeLaJournee = MomentDeLaJournee.INCONNUE;
 
     public static Default() {
         return new VerificateurPalindromeBuilder().Build();
     }
 
     public Build(): VerificateurPalindrome {
-        return new VerificateurPalindrome(this._langue);
+        return new VerificateurPalindrome(this._langue, this._moment);
     }
 
     public AyantPourLangue(langue: LangueInterface): VerificateurPalindromeBuilder {

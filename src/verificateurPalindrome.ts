@@ -4,9 +4,11 @@ import { MomentDeLaJournee } from "./momentDeLaJournee";
 
 export class VerificateurPalindrome {
   private readonly _langue: LangueInterface;
+  private readonly _momentDeLaJournee : MomentDeLaJournee
 
-  constructor(langue: LangueInterface) {
+  constructor(langue: LangueInterface, momentDeLaJournee: MomentDeLaJournee) {
     this._langue = langue;
+    this._momentDeLaJournee = momentDeLaJournee
   }
 
   public Verifier(chaine: string, momentDeLaJournee : MomentDeLaJournee = MomentDeLaJournee.INCONNUE): string {
