@@ -186,4 +186,19 @@ describe("test works", () => {
       expect(resultat).toEqual(expectedOutput);
     }
   );
+
+  test.only(`
+    Bug 22/01/2024
+    Il n’y a pas de sauts de ligne comme dernier caractère de la sortie
+  `, () => {
+    let verificateur = new VerificateurPalindromeBuilder()
+      .AyantPourLangue(new LangueAnglaise())
+      .AyantPourMomentDeLaJournee(MomentDeLaJournee.MATIN)
+      .Build();
+
+    let resultat = verificateur.Verifier(palindrome)
+    const lastElement = resultat[resultat.length - 1]
+
+    expect(lastElement).toEqual('\n');
+  })
 });
