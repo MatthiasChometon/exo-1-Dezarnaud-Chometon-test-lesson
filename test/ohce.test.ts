@@ -1,13 +1,15 @@
 import { MomentDeLaJournee } from "../src/domain/momentDeLaJournee";
 import { VerificateurPalindromeBuilder } from "../test/utilities/verificationPalindormeBuilder";
-import { Expressions } from "../src/domain/expressions"
-import { LangueFrançaise } from "../src/domain/langueFrançaise"
-import { LangueAnglaise } from "../src/domain/langueAnglaise"
-import * as os from 'os'
+import { Expressions } from "../src/domain/expressions";
+import { LangueFrançaise } from "../src/domain/langueFrançaise";
+import { LangueAnglaise } from "../src/domain/langueAnglaise";
+import * as os from "os";
 import { LangueInterface } from "../src/domain/langue.interface";
-import { LangueFake } from '../test/utilities/langueFake'
+import { LangueFake } from "../test/utilities/langueFake";
+import { LangueStub } from "./utilities/langueStub";
 
 const palindrome = "radar";
+const palindromes = [palindrome, 'kayak']
 const nonPalindromes = ["test", "ynov"];
 
 const momentsDeLaJournee = [
@@ -71,7 +73,7 @@ describe("test works", () => {
         .AyantPourMomentDeLaJournee(momentDeLaJournee)
         .Build();
 
-      let resultat = verificateur.Verifier(chaine, momentDeLaJournee);
+      let resultat = verificateur.Verifier(chaine);
 
       let premiereLigne = resultat.split(os.EOL)[0];
       let attendu = langueFake.Saluer(momentDeLaJournee);
@@ -92,7 +94,7 @@ describe("test works", () => {
         .AyantPourMomentDeLaJournee(momentDeLaJournee)
         .Build();
 
-      let resultat = verificateur.Verifier(chaine, momentDeLaJournee);
+      let resultat = verificateur.Verifier(chaine);
       let lignes = resultat.split(os.EOL);
       let derniereLigne = lignes[lignes.length - 1];
       let attendu = langueFake.Acquitter(momentDeLaJournee);
@@ -133,6 +135,55 @@ describe("test works", () => {
       let lignes = resultat.split(os.EOL);
       let derniereLigne = lignes[lignes.length - 1];
       expect(derniereLigne).toEqual(Expressions.GOODBYE);
+    }
+  );
+
+  function recipeCases () {
+    let recipeElements: Array<{ expectedOutput: (chaine: string) => string, chaines: Array<string>, langue: LangueInterface, momentDeLaJournee: MomentDeLaJournee }> = [
+      {
+        chaines: palindromes,
+        langue: new LangueAnglaise(),
+        momentDeLaJournee: MomentDeLaJournee.SOIREE,
+        expectedOutput: (chaine: string) => "Good evening" + os.EOL + chaine + os.EOL + "Well said !" + os.EOL + "Goodbye"
+      },
+      {
+        chaines: nonPalindromes,
+        langue: new LangueFrançaise(),
+        momentDeLaJournee: MomentDeLaJournee.MATIN,
+        expectedOutput: (chaine: string) => "Bonjour" + os.EOL + chaine.split('').reverse().join('') + os.EOL + "Bon matin"
+      },
+      {
+        chaines: palindromes,
+        langue: new LangueStub(),
+        momentDeLaJournee: MomentDeLaJournee.NUIT,
+        expectedOutput: (chaine: string) => "" + os.EOL + chaine + os.EOL + "" + os.EOL + ""
+      }
+    ];
+
+    let cases: Array<{ expectedOutput: string, chaine: string, langue: LangueInterface, momentDeLaJournee: MomentDeLaJournee }> = []
+
+    recipeElements.forEach(({ chaines, langue, momentDeLaJournee, expectedOutput }) => {
+      chaines.forEach((chaine) => {
+        cases.push({ chaine, langue, momentDeLaJournee, expectedOutput: expectedOutput(chaine) })
+      })
+    })
+
+    return cases;
+  }
+
+  test.each(recipeCases())(
+    "ETANT DONNE un utilisateur parlant anglais le soir " +
+    "QUAND on saisit une chaîne %s avec un palindrome" +
+    'ALORS "Good night" est envoyer suivis "Well said" et "Goodbye".',
+    ({ chaine, langue, momentDeLaJournee, expectedOutput }) => {
+      let verificateur = new VerificateurPalindromeBuilder()
+        .AyantPourLangue(langue)
+        .AyantPourMomentDeLaJournee(momentDeLaJournee)
+        .Build();
+
+      let resultat = verificateur.Verifier(chaine);
+
+      expect(resultat).toEqual(expectedOutput);
     }
   );
 });
