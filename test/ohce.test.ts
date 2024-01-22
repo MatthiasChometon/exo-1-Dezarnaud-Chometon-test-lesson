@@ -96,7 +96,7 @@ describe("test works", () => {
 
       let resultat = verificateur.Verifier(chaine);
       let lignes = resultat.split(os.EOL);
-      let derniereLigne = lignes[lignes.length - 1];
+      let derniereLigne = lignes[lignes.length - 2];
       let attendu = langueFake.Acquitter(momentDeLaJournee);
       expect(derniereLigne).toEqual(attendu);
     }
@@ -115,7 +115,7 @@ describe("test works", () => {
       let resultat = verificateur.Verifier(chaine);
 
       let lignes = resultat.split(os.EOL);
-      let derniereLigne = lignes[lignes.length - 1];
+      let derniereLigne = lignes[lignes.length - 2];
       expect(derniereLigne).toEqual(Expressions.AU_REVOIR);
     }
   );
@@ -133,7 +133,7 @@ describe("test works", () => {
       let resultat = verificateur.Verifier(chaine);
 
       let lignes = resultat.split(os.EOL);
-      let derniereLigne = lignes[lignes.length - 1];
+      let derniereLigne = lignes[lignes.length - 2];
       expect(derniereLigne).toEqual(Expressions.GOODBYE);
     }
   );
@@ -144,19 +144,19 @@ describe("test works", () => {
         chaines: palindromes,
         langue: new LangueAnglaise(),
         momentDeLaJournee: MomentDeLaJournee.SOIREE,
-        expectedOutput: (chaine: string) => "Good evening" + os.EOL + chaine + os.EOL + "Well said !" + os.EOL + "Goodbye"
+        expectedOutput: (chaine: string) => "Good evening" + os.EOL + chaine + os.EOL + "Well said !" + os.EOL + "Goodbye" + os.EOL
       },
       {
         chaines: nonPalindromes,
         langue: new LangueFrançaise(),
         momentDeLaJournee: MomentDeLaJournee.MATIN,
-        expectedOutput: (chaine: string) => "Bonjour" + os.EOL + chaine.split('').reverse().join('') + os.EOL + "Bon matin"
+        expectedOutput: (chaine: string) => "Bonjour" + os.EOL + chaine.split('').reverse().join('') + os.EOL + "Bon matin" + os.EOL
       },
       {
         chaines: palindromes,
         langue: new LangueStub(),
         momentDeLaJournee: MomentDeLaJournee.NUIT,
-        expectedOutput: (chaine: string) => "" + os.EOL + chaine + os.EOL + "" + os.EOL + ""
+        expectedOutput: (chaine: string) => "" + os.EOL + chaine + os.EOL + "" + os.EOL + "" + os.EOL
       }
     ];
 
@@ -187,7 +187,7 @@ describe("test works", () => {
     }
   );
 
-  test.only(`
+  test(`
     Bug 22/01/2024
     Il n’y a pas de sauts de ligne comme dernier caractère de la sortie
   `, () => {
