@@ -19,6 +19,6 @@ export class VerificateurPalindrome {
 
     if (miroir == chaine) sortie += this._langue.Feliciter() + os.EOL;
 
-    return sortie + this._langue.Acquitter(this._momentDeLaJournee);
+    return sortie + this._langue.Acquitter(this._momentDeLaJournee) + os.EOL;
   }
 }
