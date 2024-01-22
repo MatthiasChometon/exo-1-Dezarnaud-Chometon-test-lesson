@@ -3,7 +3,7 @@ import { Expressions } from "./expressions";
 import { MomentDeLaJournee } from "./momentDeLaJournee";
 
 export class LangueFrançaise implements LangueInterface {
-  public Acquitter(moment: MomentDeLaJournee): string {
+  public Acquitter (moment: MomentDeLaJournee): string {
     if (moment === MomentDeLaJournee.MATIN) {
       return Expressions.BON_MATIN;
     }
@@ -23,7 +23,7 @@ export class LangueFrançaise implements LangueInterface {
     return Expressions.AU_REVOIR;
   }
 
-  public Saluer(moment: MomentDeLaJournee): string {
+  public Saluer (moment: MomentDeLaJournee): string {
     if (moment === MomentDeLaJournee.MATIN) {
       return Expressions.BONJOUR;
     }
@@ -43,11 +43,15 @@ export class LangueFrançaise implements LangueInterface {
     return Expressions.BONJOUR;
   }
 
-  public Feliciter(): string {
+  public Feliciter (): string {
     return Expressions.BIEN_DIT;
   }
 
-  public toString(): string {
+  public toString (): string {
     return "Langue Française";
+  }
+
+  MessageEntree (): string {
+    return 'Veuillez taper un mot (ou exit pour quitter) :\n'
   }
 }

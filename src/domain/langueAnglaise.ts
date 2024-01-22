@@ -31,6 +31,10 @@ export class LangueAnglaise implements LangueInterface {
     return Expressions.WELL_SAID;
   }
 
+  MessageEntree (): string {
+    return 'Please type a word (or exit to leave) :\n'
+  }
+
   public toString (): string {
     return "Langue Anglaise";
   }

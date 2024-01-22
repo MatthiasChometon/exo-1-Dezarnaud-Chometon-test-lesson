@@ -13,4 +13,7 @@ export class LangueStub implements LangueInterface {
         return "";
     }
 
+    MessageEntree (): string {
+        return "";
+    }
 }

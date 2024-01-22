@@ -14,4 +14,7 @@ export class LangueFake implements LangueInterface {
         return "Acquittance";
     }
 
+    MessageEntree (): string {
+        return "Le message d'entrée";
+    }
 }
