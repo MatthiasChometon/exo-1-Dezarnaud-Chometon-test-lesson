@@ -1,7 +1,7 @@
 import { LangueInterface } from "../../src/domain/langue.interface";
 import { MomentDeLaJournee } from "../../src/domain/momentDeLaJournee";
 
-export class LangueFake implements LangueInterface {
+export class LangueParDefaut implements LangueInterface {
     Feliciter (): string {
         return "Félicitations";
     }
